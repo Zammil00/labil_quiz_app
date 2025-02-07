@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart';
 import 'package:labil_quiz_app/pages/home.dart';
+import 'package:labil_quiz_app/pages/resault.dart';
 import 'package:labil_quiz_app/pages/test.dart';
 
 void main() {
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(primarySwatch: Colors.amber),
-      home: TestPage(),
+      home: ResaultPage(),
     );
   }
 }
