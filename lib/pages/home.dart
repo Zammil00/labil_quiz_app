@@ -38,7 +38,7 @@ class _HomePagState extends State<HomePage> {
               ElevatedButton(
                 onPressed: () {},
                 child: Text("MULAI"),
-              )
+              ),
             ],
           ),
         ),
