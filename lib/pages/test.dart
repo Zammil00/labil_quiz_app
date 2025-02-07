@@ -7,6 +7,7 @@ import 'package:labil_quiz_app/models/question_model.dart';
 class TestPage extends StatefulWidget {
   final QuestionModel questionModel;
   final String username;
+
   const TestPage(
       {super.key, required this.questionModel, required this.username});
 
@@ -16,6 +17,7 @@ class TestPage extends StatefulWidget {
 
 class _TestPageState extends State<TestPage> {
   final _controller = CountDownController();
+  int index = 0;
 
   @override
   void initState() {
