@@ -27,12 +27,12 @@ class QuestionModel {
 
 class Datum {
   int id;
-  Soal soal;
-  OpsiA opsiA;
-  OpsiB opsiB;
-  OpsiC opsiC;
-  OpsiD opsiD;
-  Jabawan jabawan;
+  String soal;
+  String opsiA;
+  String opsiB;
+  String opsiC;
+  String opsiD;
+  String jabawan;
   OpsiBetul opsiBetul;
 
   Datum({
@@ -48,55 +48,31 @@ class Datum {
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
-        soal: soalValues.map[json["soal"]]!,
-        opsiA: opsiAValues.map[json["opsi_a"]]!,
-        opsiB: opsiBValues.map[json["opsi_b"]]!,
-        opsiC: opsiCValues.map[json["opsi_c"]]!,
-        opsiD: opsiDValues.map[json["opsi_d"]]!,
-        jabawan: jabawanValues.map[json["jabawan"]]!,
+        soal: json["soal"],
+        opsiA: json["opsi_a"],
+        opsiB: json["opsi_b"],
+        opsiC: json["opsi_c"],
+        opsiD: json["opsi_d"],
+        jabawan: json["jabawan"],
         opsiBetul: opsiBetulValues.map[json["opsi_betul"]]!,
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "soal": soalValues.reverse[soal],
-        "opsi_a": opsiAValues.reverse[opsiA],
-        "opsi_b": opsiBValues.reverse[opsiB],
-        "opsi_c": opsiCValues.reverse[opsiC],
-        "opsi_d": opsiDValues.reverse[opsiD],
-        "jabawan": jabawanValues.reverse[jabawan],
+        "soal": soal,
+        "opsi_a": opsiA,
+        "opsi_b": opsiB,
+        "opsi_c": opsiC,
+        "opsi_d": opsiD,
+        "jabawan": jabawan,
         "opsi_betul": opsiBetulValues.reverse[opsiBetul],
       };
 }
 
-enum Jabawan { BAHASA_HTML_NTUK_WEBSITE }
+enum OpsiBetul { A, B, C }
 
-final jabawanValues =
-    EnumValues({"Bahasa HTML Ntuk Website": Jabawan.BAHASA_HTML_NTUK_WEBSITE});
-
-enum OpsiA { UNTUK_ANDROID }
-
-final opsiAValues = EnumValues({"Untuk Android": OpsiA.UNTUK_ANDROID});
-
-enum OpsiB { UNTUK_IOS }
-
-final opsiBValues = EnumValues({"Untuk Ios": OpsiB.UNTUK_IOS});
-
-enum OpsiBetul { C }
-
-final opsiBetulValues = EnumValues({"c": OpsiBetul.C});
-
-enum OpsiC { UNTUK_WEBSITE }
-
-final opsiCValues = EnumValues({"Untuk Website": OpsiC.UNTUK_WEBSITE});
-
-enum OpsiD { UNTUK_LINUX }
-
-final opsiDValues = EnumValues({"Untuk Linux": OpsiD.UNTUK_LINUX});
-
-enum Soal { TUJUAN_BAHASA_HTML }
-
-final soalValues = EnumValues({"Tujuan Bahasa HTML": Soal.TUJUAN_BAHASA_HTML});
+final opsiBetulValues =
+    EnumValues({"a": OpsiBetul.A, "b": OpsiBetul.B, "c": OpsiBetul.C});
 
 class EnumValues<T> {
   Map<String, T> map;
