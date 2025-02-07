@@ -1,9 +1,14 @@
 import 'package:countdown_progress_indicator/countdown_progress_indicator.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:labil_quiz_app/models/question_model.dart';
 
 class TestPage extends StatefulWidget {
-  const TestPage({super.key});
+  final QuestionModel questionModel;
+  final String username;
+  const TestPage(
+      {super.key, required this.questionModel, required this.username});
 
   @override
   State<TestPage> createState() => _TestPageState();
@@ -11,6 +16,19 @@ class TestPage extends StatefulWidget {
 
 class _TestPageState extends State<TestPage> {
   final _controller = CountDownController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    if (kDebugMode) {
+      print("USERNAME = ${widget.username}");
+    }
+    if (kDebugMode) {
+      print("DATA = ${widget.questionModel.data.length}");
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,14 +42,14 @@ class _TestPageState extends State<TestPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "1/10",
+                    "1 / ${widget.questionModel.data.length}",
                     style: GoogleFonts.roboto(
                       fontSize: 18,
                       color: Colors.white,
                     ),
                   ),
                   Text(
-                    "Labil",
+                    widget.username,
                     style: GoogleFonts.roboto(
                       fontSize: 18,
                       color: Colors.white,
@@ -85,14 +103,7 @@ class _TestPageState extends State<TestPage> {
               height: 50,
             ),
             GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => TestPage(),
-                  ),
-                );
-              },
+              onTap: () {},
               child: OptionWidget(
                 optionChar: "A",
                 optionDetail: "Untuk Android",
