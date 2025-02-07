@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:labil_quiz_app/pages/resault.dart';
+import 'package:labil_quiz_app/pages/test.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -36,7 +38,14 @@ class _HomePagState extends State<HomePage> {
                 ),
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => TestPage(),
+                    ),
+                  );
+                },
                 child: Text("MULAI"),
               ),
             ],

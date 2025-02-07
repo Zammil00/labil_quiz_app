@@ -85,7 +85,14 @@ class _TestPageState extends State<TestPage> {
               height: 50,
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => TestPage(),
+                  ),
+                );
+              },
               child: OptionWidget(
                 optionChar: "A",
                 optionDetail: "Untuk Android",
