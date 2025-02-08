@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:labil_quiz_app/models/question_model.dart';
-import 'package:labil_quiz_app/pages/resault.dart';
+import 'package:labil_quiz_app/pages/result.dart';
 import 'package:labil_quiz_app/pages/test.dart';
 import 'package:http/http.dart' as http;
 

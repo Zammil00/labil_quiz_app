@@ -32,8 +32,7 @@ class Datum {
   String opsiB;
   String opsiC;
   String opsiD;
-  String jabawan;
-  OpsiBetul opsiBetul;
+  String jawaban;
 
   Datum({
     required this.id,
@@ -42,8 +41,7 @@ class Datum {
     required this.opsiB,
     required this.opsiC,
     required this.opsiD,
-    required this.jabawan,
-    required this.opsiBetul,
+    required this.jawaban,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -53,8 +51,7 @@ class Datum {
         opsiB: json["opsi_b"],
         opsiC: json["opsi_c"],
         opsiD: json["opsi_d"],
-        jabawan: json["jabawan"],
-        opsiBetul: opsiBetulValues.map[json["opsi_betul"]]!,
+        jawaban: json["jawaban"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -64,9 +61,23 @@ class Datum {
         "opsi_b": opsiB,
         "opsi_c": opsiC,
         "opsi_d": opsiD,
-        "jabawan": jabawan,
-        "opsi_betul": opsiBetulValues.reverse[opsiBetul],
+        "jawaban": jawaban,
       };
+
+  String getOption(String option) {
+    switch (option.toLowerCase()) {
+      case 'a':
+        return opsiA;
+      case 'b':
+        return opsiB;
+      case 'c':
+        return opsiC;
+      case 'd':
+        return opsiD;
+      default:
+        return '';
+    }
+  }
 }
 
 enum OpsiBetul { A, B, C }

@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:labil_quiz_app/models/question_model.dart';
+import 'package:labil_quiz_app/pages/result.dart';
 
 class TestPage extends StatefulWidget {
   final QuestionModel questionModel;
@@ -18,17 +19,48 @@ class TestPage extends StatefulWidget {
 class _TestPageState extends State<TestPage> {
   final _controller = CountDownController();
   int index = 0;
+  int result = 0;
 
   @override
   void initState() {
-    // TODO: implement initState
+    super.initState();
     if (kDebugMode) {
       print("USERNAME = ${widget.username}");
-    }
-    if (kDebugMode) {
       print("DATA = ${widget.questionModel.data.length}");
     }
-    super.initState();
+  }
+
+  void navigate(String optionChar) {
+    if (kDebugMode) {
+      print("Jawaban yang dipilih: $optionChar");
+      print("Jawaban yang benar: ${widget.questionModel.data[index].jawaban}");
+    }
+
+    setState(() {
+      if (optionChar == widget.questionModel.data[index].jawaban) {
+        result++;
+        if (kDebugMode) {
+          print("Jawaban benar! Nilai saat ini: $result");
+        }
+      }
+
+      if (index + 1 < widget.questionModel.data.length) {
+        index++;
+      } else {
+        _navigateToResult();
+      }
+    });
+  }
+
+  void _navigateToResult() {
+    Navigator.of(context)
+        .push(MaterialPageRoute(
+            builder: (context) => ResultPage(
+                  result: result,
+                )))
+        .then((value) {
+      setState(() {});
+    });
   }
 
   @override
@@ -44,18 +76,14 @@ class _TestPageState extends State<TestPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "1 / ${widget.questionModel.data.length}",
-                    style: GoogleFonts.roboto(
-                      fontSize: 18,
-                      color: Colors.white,
-                    ),
+                    "${index + 1} / ${widget.questionModel.data.length}",
+                    style:
+                        GoogleFonts.roboto(fontSize: 18, color: Colors.white),
                   ),
                   Text(
                     widget.username,
-                    style: GoogleFonts.roboto(
-                      fontSize: 18,
-                      color: Colors.white,
-                    ),
+                    style:
+                        GoogleFonts.roboto(fontSize: 18, color: Colors.white),
                   ),
                 ],
               ),
@@ -69,73 +97,35 @@ class _TestPageState extends State<TestPage> {
                 backgroundColor: Colors.white,
                 initialPosition: 0,
                 duration: 60,
-                // timeFormatter: (second) {
-                //   return Duration(seconds: second)
-                //       .toString()
-                //       .split('.')[0]
-                //       .padLeft(8, '0');
-                // },
                 text: 'Detik',
-                labelTextStyle: GoogleFonts.roboto(
-                  color: Colors.white,
-                  fontSize: 20,
-                ),
-                timeTextStyle: GoogleFonts.roboto(
-                  fontSize: 25,
-                  color: Colors.white,
-                ),
-                onComplete: () => null,
+                labelTextStyle:
+                    GoogleFonts.roboto(color: Colors.white, fontSize: 20),
+                timeTextStyle:
+                    GoogleFonts.roboto(fontSize: 25, color: Colors.white),
+                onComplete: _navigateToResult,
               ),
             ),
-            SizedBox(
-              height: 50,
-            ),
+            const SizedBox(height: 50),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                "Tujuan Bahasa HTML...",
+                widget.questionModel.data[index].soal,
                 textAlign: TextAlign.center,
-                style: GoogleFonts.roboto(
-                  color: Colors.white,
-                  fontSize: 25,
+                style: GoogleFonts.roboto(color: Colors.white, fontSize: 25),
+              ),
+            ),
+            const SizedBox(height: 50),
+            ...['A', 'B', 'C', 'D'].map((option) {
+              return GestureDetector(
+                onTap: () => navigate(option.toLowerCase()),
+                child: OptionWidget(
+                  optionChar: option,
+                  optionDetail:
+                      widget.questionModel.data[index].getOption(option),
+                  color: Colors.blueGrey,
                 ),
-              ),
-            ),
-            SizedBox(
-              height: 50,
-            ),
-            GestureDetector(
-              onTap: () {},
-              child: OptionWidget(
-                optionChar: "A",
-                optionDetail: "Untuk Android",
-                color: Colors.blue,
-              ),
-            ),
-            GestureDetector(
-              onTap: () {},
-              child: OptionWidget(
-                optionChar: "B",
-                optionDetail: "Untuk Ios",
-                color: Colors.cyan,
-              ),
-            ),
-            GestureDetector(
-              onTap: () {},
-              child: OptionWidget(
-                optionChar: "C",
-                optionDetail: "Untuk Website",
-                color: Colors.indigo,
-              ),
-            ),
-            GestureDetector(
-              onTap: () {},
-              child: OptionWidget(
-                optionChar: "D",
-                optionDetail: "Untuk Linux",
-                color: Colors.brown,
-              ),
-            ),
+              );
+            }).toList(),
           ],
         ),
       ),
@@ -160,31 +150,22 @@ class OptionWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Container(
-        decoration: BoxDecoration(
-          color: color,
-        ),
+        decoration:
+            BoxDecoration(color: color, borderRadius: BorderRadius.circular(8)),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Row(
             children: [
               Text(
                 optionChar,
-                style: GoogleFonts.roboto(
-                  color: Colors.white,
-                  fontSize: 18,
-                ),
+                style: GoogleFonts.roboto(color: Colors.white, fontSize: 18),
               ),
-              SizedBox(
-                width: 20,
-              ),
+              const SizedBox(width: 20),
               Expanded(
                 child: Text(
                   optionDetail,
                   textAlign: TextAlign.start,
-                  style: GoogleFonts.roboto(
-                    color: Colors.white,
-                    fontSize: 18,
-                  ),
+                  style: GoogleFonts.roboto(color: Colors.white, fontSize: 18),
                 ),
               ),
             ],
